@@ -1,0 +1,26 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/material-components-web.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/material-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/intro.css' %}">
+</head>
+
+<body>
+    
+{% block content %}
+    
+{% endblock %}
+    
+    
+{% load static %}
+<script type="text/javascript" src="{% static 'js/material-components-web.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/intro.js' %}"></script>
+</body>
+
+</html>

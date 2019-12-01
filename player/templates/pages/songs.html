@@ -1,0 +1,62 @@
+<div class="mdc-data-table">
+    <table class="mdc-data-table__table" aria-label="Songs">
+        <thead>
+        <tr class="mdc-data-table__header-row">
+            <th class="mdc-data-table__header-cell mdc-data-table__header-cell--checkbox"
+                role="columnheader"
+                scope="col">
+                <div class="mdc-checkbox mdc-data-table__header-row-checkbox mdc-checkbox--selected">
+                    <input type="checkbox" class="mdc-checkbox__native-control"
+                           aria-label="Checkbox for header row selection"/>
+                    <div class="mdc-checkbox__background">
+                        <svg class="mdc-checkbox__checkmark" viewbox="0 0 24 24">
+                            <path class="mdc-checkbox__checkmark-path" fill="none"
+                                  d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                        </svg>
+                        <div class="mdc-checkbox__mixedmark"></div>
+                    </div>
+                </div>
+            </th>
+            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Title</th>
+            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Time</th>
+            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Artist</th>
+            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Album</th>
+        </tr>
+        </thead>
+        <tbody class="mdc-data-table__content" id="tbody-songs">
+        {% for song in song_list %}
+            <tr data-row-id="{{ song.audio.url }}" class="mdc-data-table__row">
+                <td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
+                    <div class="mdc-checkbox mdc-data-table__row-checkbox">
+                        <label>
+                            <input type="checkbox" class="mdc-checkbox__native-control"
+                                   aria-labelledby="u0"/>
+                        </label>
+                        <div class="mdc-checkbox__background">
+                            <svg class="mdc-checkbox__checkmark" viewbox="0 0 24 24">
+                                <path class="mdc-checkbox__checkmark-path" fill="none"
+                                      d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
+                            </svg>
+                            <div class="mdc-checkbox__mixedmark"></div>
+                        </div>
+                    </div>
+                </td>
+                <td class="mdc-data-table__cell">{{ song.name }}</td>
+                <td class="mdc-data-table__cell">{{ song.minutes }}:{{ song.seconds }}</td>
+                <td class="mdc-data-table__cell">{{ song.album.artist }}</td>
+                <td class="mdc-data-table__cell">{{ song.album }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+    const dataTable = new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
+    const tbody = document.getElementById('tbody-songs');
+    tbody.forEach(function (element) {
+        element.addEventListener('click', function () {
+            musicQueue.push(element.getAttribute('data-row-id'))
+        })
+    });
+</script>

@@ -1,0 +1,185 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="shortcut icon" href="music-player.png" type="image/x-icon">
+    <link rel="icon" href="music-player.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css"
+          href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/spa.css' %}">
+</head>
+
+<body>
+<header class="mdc-top-app-bar app-bar mdc-top-app-bar--fixed" id="mdc-app-bar">
+    <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section">
+            <img src="" border="0" width="50" height="50">
+            <div> 
+                <span> <b> title </b> </span>
+                <br>
+                <span>artist</span>
+                •
+                <span>album</span>
+                •
+                <span>year</span>
+            </div>
+            <button class="mdc-icon-button material-icons">shuffle</button>
+            <button class="mdc-icon-button material-icons">fast_rewind</button>
+            <button id="button-play" class="mdc-icon-button" aria-label="Play and pause" aria-hidden="true" aria-pressed="false">
+                <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">pause_circle_outline</i>
+                <i class="material-icons mdc-icon-button__icon">play_circle_outline</i>
+            </button>
+            <button class="mdc-icon-button material-icons">fast_forward</button>
+            <button class="mdc-icon-button material-icons">repeat</button>
+            <button id="add-to-favorites" class="mdc-icon-button" aria-label="Add to favorites" aria-hidden="true" aria-pressed="false">
+                <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">favorite</i>
+                <i class="material-icons mdc-icon-button__icon">favorite_border</i>
+            </button>
+            
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section">
+            
+            <div id="slider-time" class="mdc-slider" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                 aria-label="Select Value">
+                <div class="mdc-slider__track-container">
+                    <div class="mdc-slider__track"></div>
+                </div>
+                <div class="mdc-slider__thumb-container">
+                    <svg class="mdc-slider__thumb" width="21" height="21">
+                        <circle cx="10.5" cy="10.5" r="7.875"></circle>
+                    </svg>
+                    <div class="mdc-slider__focus-ring"></div>
+                </div>
+            </div>
+            <div>lefttime</div>
+            /
+            <div>musiclen</div>
+        </section>
+
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+            <button id="button-mute" class="mdc-icon-button" aria-label="Add to favorites" aria-hidden="true"
+                    aria-pressed="false">
+                <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">volume_up</i>
+                <i class="material-icons mdc-icon-button__icon">volume_off</i>
+            </button>
+            <div id="slider-volume" class="mdc-slider mdc-slider--discrete" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+                 aria-valuenow="0" aria-label="Select Value">
+                <div class="mdc-slider__track-container">
+                    <div class="mdc-slider__track"></div>
+                </div>
+                <div class="mdc-slider__thumb-container">
+                    <div class="mdc-slider__pin">
+                        <span class="mdc-slider__pin-value-marker">30</span>
+                    </div>
+                    <svg class="mdc-slider__thumb" width="21" height="21">
+                        <circle cx="10.5" cy="10.5" r="7.875"></circle>
+                    </svg>
+                    <div class="mdc-slider__focus-ring"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+<aside class="mdc-drawer mdc-drawer--dismissible mdc-top-app-bar--fixed-adjust">
+    <div class="mdc-drawer__header">
+        <h2 class="mdc-drawer__title">Encore</h2>
+        <h6 class="mdc-drawer__subtitle">Play Again.</h6>
+    </div>
+    <nav class="mdc-drawer__content">
+        <ul class="mdc-list" id="list-menu">
+            <li class="mdc-list-item mdc-ripple">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">add</i>
+                <span class="mdc-list-item__text">Add</span>
+            </li>
+            <li class="mdc-list-divider">
+            <li class="mdc-list-item mdc-ripple">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">supervisor_account</i>
+                <span class="mdc-list-item__text">Artists</span>
+            </li>
+            <li class="mdc-list-item mdc-ripple">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">album</i>
+                <span class="mdc-list-item__text">Albums</span>
+            </li>
+            <li class="mdc-list-item mdc-ripple mdc-list-item--activated">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">library_music</i>
+                <span class="mdc-list-item__text">Songs</span>
+            </li>
+            <li class="mdc-list-divider">
+
+            <li class="mdc-list-item mdc-ripple">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">account_circle</i>
+                <span class="mdc-list-item__text">Account</span>
+            </li>
+
+            <li class="mdc-list-item mdc-ripple">
+                <i class="material-icons mdc-list-item__graphic" aria-hidden="true">settings</i>
+                <span class="mdc-list-item__text">Settings</span>
+            </li>
+        </ul>
+    </nav>
+</aside>
+
+<div class="mdc-drawer-app-content mdc-top-app-bar--fixed-adjust" id="mdc-app-content">
+    <div class="main">
+        <main class="content" id="main-add">
+        </main>
+        <main class="content" id="main-artists">
+        </main>
+        <main class="content" id="main-albums">
+        </main>
+        <main class="content content--active" id="main-songs">
+        </main>
+        <main class="content" id="main-account">
+        </main>
+        <main class="content" id="main-settings">
+        </main>
+    </div>
+</div>
+{% load static %}
+<script type="text/javascript"
+        src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    viewUrl = Array();
+    viewUrl.push("{% url 'player:add' %}");
+    viewUrl.push("{% url 'player:artists' %}");
+    viewUrl.push("{% url 'player:albums' %}");
+    viewUrl.push("{% url 'player:songs' %}");
+    viewUrl.push("{% url 'player:account' %}");
+    viewUrl.push("{% url 'player:settings' %}");
+    viewName = Array("add", "artists", "albums", "songs", "account", "settings");
+
+    const spaView = "{{ view }}";
+
+    $(document).ready(function () {
+        $("#main-add").load("{% url 'player:add_view' %}", function () {
+
+        });
+        $("#main-artists").load("{% url 'player:artists_view' %}", function () {
+
+        });
+        $("#main-albums").load("{% url 'player:albums_view' %}", function () {
+
+        });
+        $("#main-songs").load("{% url 'player:songs_view' %}", function () {
+
+        });
+        $("#main-account").load("{% url 'player:account_view' %}", function () {
+
+        });
+        $("#main-settings").load("{% url 'player:settings_view' %}", function () {
+
+        });
+    });
+</script>
+<script type="text/javascript" src="{% static 'js/spa.js' %}"></script>
+</body>
+
+</html>

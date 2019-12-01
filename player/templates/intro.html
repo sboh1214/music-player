@@ -1,0 +1,55 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Music Player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css"
+          href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/intro.css' %}">
+</head>
+
+<body>
+<header class="mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+            <span class="mdc-top-app-bar__title">Music Player</span>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align">
+            <button class="mdc-fab mdc-fab--extended" id="button-player"
+                    onclick="location.href='{% url 'player:spa' %}'">
+                <span class="material-icons mdc-fab__icon">add</span>
+                <span class="mdc-fab__label">Tune In</span>
+            </button>
+        </section>
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+            {% load socialaccount %}
+            {% providers_media_js %}
+            {% if user.is_authenticated %}
+                Welcome,
+                <strong>{% firstof user.get_short_name user.get_username %}</strong>
+                <a class="mdc-button mdc-button--outlined button-reverse"
+                   href="#">
+                    <span class="mdc-button__ripple">Change Password</span>
+                </a>
+            {% else %}
+                Welcome, Anonymous
+                <a class="mdc-button mdc-button--outlined button-reverse" href="{% provider_login_url 'google' %}">
+                    <span class="mdc-button__ripple">Login</span>
+                </a>
+            {% endif %}
+        </section>
+    </div>
+</header>
+<div>Icons made by <a href="https://www.flaticon.com/authors/smashicons" title="Smashicons">Smashicons</a> from <a
+        href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+Hello
+<script type="text/javascript"
+        src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+{% load static %}
+<script type="text/javascript" src="{% static 'js/intro.js' %}"></script>
+</body>
+</html>

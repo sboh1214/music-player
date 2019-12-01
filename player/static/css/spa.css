@@ -1,0 +1,72 @@
+ :root {
+    --mdc-theme-primary: #5351db !important;
+    --mdc-theme-secondary: #8cc4de !important;
+    --mdc-theme-on-primary: #fff !important;
+    --mdc-theme-on-secondary: #fff !important;
+}
+
+.mdc-tab-bar {
+    --mdc-theme-primary: #fff !important;
+}
+
+@media (prefers-color-scheme: dark) {
+     :root {
+        --mdc-theme-primary: #5351db !important;
+        --mdc-theme-secondary: #8cc4de !important;
+        --mdc-theme-on-primary: #000000 !important;
+        --mdc-theme-on-secondary: #000000 !important;
+    }
+    body {
+        background-color: #000000;
+    }
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+.mdc-drawer-app-content {
+    flex: auto;
+    overflow: auto;
+    position: relative;
+}
+
+.app-bar {
+    position: absolute;
+}
+
+.mdc-top-app-bar {
+    z-index: 7;
+}
+
+.mdc-list-item {
+    padding-right: 32px;
+}
+
+.mdc-data-table {
+    width: 100%;
+}
+
+.content {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.content--active {
+    display: block;
+}
+
+.main {
+    padding: 16px;
+}
+
+.mdc-fab {
+    z-index: 5;
+}
+
+ .my-image-list {
+ @include mdc-image-list-standard-columns(5);
+ }

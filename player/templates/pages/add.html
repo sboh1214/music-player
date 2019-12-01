@@ -1,0 +1,11 @@
+<form enctype="multipart/form-data" method="post" action="{% url 'player:add_view' %}">
+    {% csrf_token %}
+
+    {% if form.errors %}
+        <p>Error</p>
+    {% endif %}
+
+    {{ form.as_p }}
+
+    <input type="submit" value="Submit">
+</form>

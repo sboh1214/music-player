@@ -1,0 +1,38 @@
+:root {
+    --mdc-theme-primary: #5351db !important;
+    --mdc-theme-secondary: #8cc4de !important;
+    --mdc-theme-on-primary: #fff !important;
+    --mdc-theme-on-secondary: #fff !important;
+}
+
+.mdc-tab-bar {
+    --mdc-theme-primary: #fff !important;
+}
+
+@media (prefers-color-scheme: dark) {
+     :root {
+        --mdc-theme-primary: #5351db !important;
+        --mdc-theme-secondary: #8cc4de !important;
+        --mdc-theme-on-primary: #000 !important;
+        --mdc-theme-on-secondary: #000 !important;
+    }
+    body {
+        background-color: #000000;
+    }
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    margin: 0;
+}
+
+.mdc-top-app-bar {
+    position: absolute;
+    z-index: 7;
+}
+
+.button-reverse {
+    --mdc-theme-primary: #fff;
+    margin: 6px;
+}
