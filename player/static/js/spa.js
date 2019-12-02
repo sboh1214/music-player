@@ -31,7 +31,8 @@ window.addEventListener('DOMContentLoaded', function () {
             audio.play();
         }
     });
-    const fav_button = new mdc.iconButton.MDCIconButtonToggle(document.getElementById('add-to-favorites'));
+    const favButton = new mdc.iconButton.MDCIconButtonToggle(document.getElementById('button-fav'));
+    const repeatButton = new mdc.iconButton.MDCIconButtonToggle(document.getElementById('button-repeat'));
 
     const v_slider = new mdc.slider.MDCSlider(document.getElementById('slider-volume'));
     const t_slider = new mdc.slider.MDCSlider(document.getElementById('slider-time'));
