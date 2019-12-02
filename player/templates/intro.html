@@ -8,6 +8,8 @@
           href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     {% load static %}
+    <link rel="shortcut icon" href="{% static 'music-player.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'music-player.png' %}" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{% static 'css/intro.css' %}">
 </head>
 
@@ -45,7 +47,7 @@
 </header>
 <div>
     <video autoplay="autoplay" muted="muted" width="100%" height="auto"> 
-        <source src="static/INTRO.mp4" type="video/mp4">
+        <source src="{% static 'INTRO.mp4' %}" type="video/mp4">
     </video>
 </div>
 

@@ -50,13 +50,3 @@
         </tbody>
     </table>
 </div>
-
-<script type="text/javascript">
-    const dataTable = new mdc.dataTable.MDCDataTable(document.querySelector('.mdc-data-table'));
-    const tbody = document.getElementById('tbody-songs');
-    tbody.forEach(function (element) {
-        element.addEventListener('click', function () {
-            musicQueue.push(element.getAttribute('data-row-id'))
-        })
-    });
-</script>
