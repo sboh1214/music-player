@@ -36,3 +36,8 @@ body {
     --mdc-theme-primary: #fff;
     margin: 6px;
 }
+
+video{
+    width: 120% !important;
+    height: auto !important;
+}
