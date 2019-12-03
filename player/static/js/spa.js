@@ -111,7 +111,7 @@ window.addEventListener('DOMContentLoaded', function () {
             Howler.volume(0);
         } else {
             console.log("unmute");
-            Howler.volume(1);
+            Howler.volume(0.5);
         }
     });
 

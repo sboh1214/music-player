@@ -64,7 +64,7 @@ class ArtistsView(ListView):
     context_object_name = 'artist_list'
 
     def get_queryset(self):
-        return Artist.objects.filter(artist__album__user=self.request.user)
+        return Artist.objects.filter(artist__album__user=self.request.user).distinct()
 
 
 class AlbumsView(ListView):
@@ -73,7 +73,7 @@ class AlbumsView(ListView):
     context_object_name = 'album_list'
 
     def get_queryset(self):
-        return Album.objects.filter(album__user=self.request.user)
+        return Album.objects.filter(album__user=self.request.user).distinct()
 
 
 class SongsView(ListView):
