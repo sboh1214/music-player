@@ -83,12 +83,12 @@ window.addEventListener('DOMContentLoaded', function () {
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
     const repeatButton = new MDCIconButtonToggle(document.getElementById('button-repeat'));
 
-    const v_slider = new MDCSlider(document.getElementById('slider-volume'));
-    const t_slider = new MDCSlider(document.getElementById('slider-time'));
-    v_slider.listen('MDCSlider:change', (event) => {
+    const volumeSlider = new MDCSlider(document.getElementById('slider-volume'));
+    const timeSlider = new MDCSlider(document.getElementById('slider-time'));
+    volumeSlider.listen('MDCSlider:change', (event) => {
         return console.log(`Value changed to ${event.detail.value}`);
     });
-    t_slider.listen('MDCSlider:change', (event) => {
+    timeSlider.listen('MDCSlider:change', (event) => {
         return console.log(`Value changed to ${event.detail.value}`);
     });
 
