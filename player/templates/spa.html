@@ -23,11 +23,11 @@
             {% load static %}
             <img src="{% static 'music-player.png' %}" width="50" height="50" alt="Music">
             <div>
-                <span class="mdc-typography--body1"> <b>  title  </b> </span>
+                <span class="mdc-typography--body1"> <b id="text-title">  title  </b> </span>
                 <br>
-                <span class="mdc-typography--body1"> artist </span>
+                <span class="mdc-typography--body1" id="text-artist"> artist </span>
                 •
-                <span class="mdc-typography--body1">album</span>
+                <span class="mdc-typography--body1" id="text-album"> album </span>
             </div>
             <button class="mdc-icon-button material-icons">shuffle</button>
             <button class="mdc-icon-button material-icons">fast_rewind</button>

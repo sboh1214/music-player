@@ -87,7 +87,7 @@ class SongsView(ListView):
     def get_queryset(self):
         return Song.objects.filter(user=self.request.user)
 
-    
+
 class AccountView(TemplateView):
     template_name = "pages/account.html"
 
@@ -100,11 +100,10 @@ def songs_list(request):
     song_list = []
     for item in Song.objects.filter(user=request.user):
         song_list.append({
-            "slug"      : item.slug,
-            "name"      : item.name,
-            "albumName" : item.album.name,
-            "artistName": item.album.artist.name,
-            "audioUrl"  : item.audio.url
+            "slug"  : item.slug,
+            "title" : item.name,
+            "album" : item.album.name,
+            "artist": item.album.artist.name,
+            "url"   : item.audio.url
         })
     return HttpResponse(dumps(song_list))
-

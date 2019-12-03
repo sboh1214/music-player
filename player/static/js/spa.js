@@ -21,8 +21,12 @@ $(document).ready(function () {
         $.each($('#tbody-songs').children(), function (i, element) {
             MDCRipple.attachTo(element);
             element.addEventListener('click', function () {
-                console.log('hello');
-                musicQueue.push(element.getAttribute('data-row-id'))
+                let clickedSlug = element.getAttribute('data-row-id');
+                console.log(clickedSlug);
+                musicQueue.push(musicList.find(function (item) {
+                    return item.slug === clickedSlug;
+                }));
+                updatePlayBar();
             })
         });
     });
@@ -34,8 +38,12 @@ $(document).ready(function () {
     });
 });
 
+let musicList = Array();
+let musicQueue = Array();
+
 $.getJSON(songsListUrl, {}, function (data) {
     console.log(data);
+    musicList = data;
 });
 
 let mdcInstance = {};
@@ -63,10 +71,13 @@ window.addEventListener('DOMContentLoaded', function () {
     const playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
     playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
-            audio.pause();
+            console.log("play");
+            var sound = new Howl({
+                src: [musicQueue[0].url]
+            });
+            sound.play();
         } else {
-            audio.src = musicQueue.shift();
-            audio.play();
+            console.log("pause");
         }
     });
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
@@ -94,4 +105,10 @@ function changeView(index, pushState) {
     if (pushState === true) {
         window.history.pushState(null, null, viewUrl[index])
     }
+}
+
+function updatePlayBar() {
+    $("#text-title").text(musicQueue[0].title);
+    $("#text-album").text(musicQueue[0].album);
+    $("#text-artist").text(musicQueue[0].artist);
 }
