@@ -150,7 +150,7 @@
     </div>
 </div>
 {% load static %}
-<script src="{% static '/js/dropzone.js' %}"></script>
+
 <script type="text/javascript"
         src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
@@ -179,7 +179,9 @@
 
     const songsListUrl = "{% url 'player:songs_list' %}"
 </script>
+{% load static %}
 <script type="text/javascript" src="{% static 'js/spa.js' %}"></script>
+<script src="{% static 'js/dropzone.js' %}"></script>
 </body>
 
 </html>

@@ -9,6 +9,9 @@ const MDCMenu = mdc.menu.MDCMenu;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
+        $("#add_music").dropzone({
+            url: htmlUrl["add"],
+        });
     });
     $("#main-artists").load(htmlUrl["artists"], function () {
 
