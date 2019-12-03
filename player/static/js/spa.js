@@ -12,8 +12,9 @@ $(document).ready(function () {
         var dropzone=document.getElementById('dropzone');
 
         dropzone.ondrop=function(e){
-        fileinput.files=e.dataTransfer.files
-        e.preventDefault();
+            fileinput.files=e.dataTransfer.files
+            e.preventDefault();
+        }
     });
     $("#main-artists").load(htmlUrl["artists"], function () {
 
