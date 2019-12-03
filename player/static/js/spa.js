@@ -6,9 +6,6 @@ const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle;
 const MDCRipple = mdc.ripple.MDCRipple;
 const MDCSlider = mdc.slider.MDCSlider;
 
-const Howl = howler.Howl;
-const Howler = howler.Howler;
-
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
 
@@ -71,11 +68,12 @@ window.addEventListener('DOMContentLoaded', function () {
     playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
             console.log("play");
-
+            var sound = new Howl({
+                src: [musicList[0].audioUrl]
+            });
+            sound.play();
         } else {
             console.log("pause");
-            audio.src = musicQueue.shift();
-            audio.play();
         }
     });
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));

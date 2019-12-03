@@ -18,6 +18,7 @@
                 </div>
             </th>
             <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Title</th>
+            <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Menu</th>
             <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Time</th>
             <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Artist</th>
             <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Album</th>
@@ -40,6 +41,9 @@
                             <div class="mdc-checkbox__mixedmark"></div>
                         </div>
                     </div>
+                </td>
+                <td>
+                    <button class="mdc-icon-button material-icons">menu</button>
                 </td>
                 <td class="mdc-data-table__cell">{{ song.name }}</td>
                 <td class="mdc-data-table__cell">{{ song.minutes }}:{{ song.seconds }}</td>
