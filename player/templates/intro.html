@@ -30,14 +30,10 @@
             {% load socialaccount %}
             {% providers_media_js %}
             {% if user.is_authenticated %}
-                Welcome,
+                Welcome, 
                 <strong>{% firstof user.get_short_name user.get_username %}</strong>
-                <a class="mdc-button mdc-button--outlined button-reverse"
-                   href="#">
-                    <span class="mdc-button__ripple">Change Password</span>
-                </a>
             {% else %}
-                Welcome, Anonymous
+                Please Login 
                 <a class="mdc-button mdc-button--outlined button-reverse" href="{% provider_login_url 'google' %}">
                     <span class="mdc-button__ripple">Login</span>
                 </a>
