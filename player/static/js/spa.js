@@ -6,6 +6,9 @@ const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle;
 const MDCRipple = mdc.ripple.MDCRipple;
 const MDCSlider = mdc.slider.MDCSlider;
 
+const Howl = howler.Howl;
+const Howler = howler.Howler;
+
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
 
@@ -34,8 +37,12 @@ $(document).ready(function () {
     });
 });
 
+let musicList = Array();
+let musicQueue = Array();
+
 $.getJSON(songsListUrl, {}, function (data) {
     console.log(data);
+    musicList = data;
 });
 
 let mdcInstance = {};
@@ -63,8 +70,10 @@ window.addEventListener('DOMContentLoaded', function () {
     const playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
     playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
-            audio.pause();
+            console.log("play");
+
         } else {
+            console.log("pause");
             audio.src = musicQueue.shift();
             audio.play();
         }
