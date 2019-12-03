@@ -43,13 +43,14 @@ class Song(models.Model):
     @staticmethod
     def get_audio_info(path):
         ext = path.split('.')[-1]
-        info = {'album': None, 'title': None, 'artist': None, 'date': None}
+        info = {'album': None, 'title': None, 'artist': None, 'date': None, 'length':None}
         if ext == 'mp3':
             music = ID3(path)
             info['album'] = music['TALB']
             info['artist'] = music['TPE1']
             info['title'] = music['TIT2']
             info['date'] = music['TDRC']
+            info['length'] = music['TLEN']
         elif ext == 'flac':
             music = FLAC(path)
             info['album'] = music['album'][0]

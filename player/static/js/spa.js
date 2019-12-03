@@ -8,7 +8,11 @@ const MDCSlider = mdc.slider.MDCSlider;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
+        var dropzone=document.getElementById('dropzone');
 
+        dropzone.ondrop=function(e){
+        fileinput.files=e.dataTransfer.files
+        e.preventDefault();
     });
     $("#main-artists").load(htmlUrl["artists"], function () {
 
