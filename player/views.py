@@ -45,7 +45,6 @@ class AddView(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         files = request.FILES.getlist('file')
-        print(files)
         if form.is_valid():
             for file in files:
                 info = Song.get_audio_info(file.temporary_file_path())
