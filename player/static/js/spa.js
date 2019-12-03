@@ -25,7 +25,7 @@ $(document).ready(function () {
             element.addEventListener('click', function () {
                 let clickedSlug = element.getAttribute('data-row-id');
                 console.log(clickedSlug);
-                musicQueue.push(musicList.find(function (item) {
+                musicQueue.unshift(musicList.find(function (item) {
                     return item.slug === clickedSlug;
                 }));
                 updatePlayBar();
@@ -56,12 +56,14 @@ $(document).ready(function () {
 });
 
 let musicList = Array();
-let musicQueue = Array();
+let musicQueue = Array([null]);
 let musicInstance = null;
 
 $.getJSON(songsListUrl, {}, function (data) {
     console.log(data);
     musicList = data;
+    musicQueue = shuffle(musicList);
+    updatePlayBar();
 });
 
 let mdcInstance = {};
@@ -96,6 +98,7 @@ window.addEventListener('DOMContentLoaded', function () {
             pause();
         }
     });
+
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
     const repeatButton = new MDCIconButtonToggle(document.getElementById('button-repeat'));
 
@@ -110,6 +113,15 @@ window.addEventListener('DOMContentLoaded', function () {
     });
 
     changeView(viewName.indexOf(spaView), true);
+
+    let nextButton = document.getElementById("button-next");
+    nextButton.addEventListener('click', function(event){
+        next();
+    });
+    let previousButton = document.getElementById("button-previous");
+    previousButton.addEventListener('click', function(event){
+        previous();
+    });
 });
 
 function changeView(index, pushState) {
@@ -153,20 +165,35 @@ function pause() {
     mdcInstance.playButton.on = false;
 }
 
+function next() {
+    if (musicInstance !== null) {
+        musicInstance.pause();
+    }
+    musicInstance = null;
+    musicQueue.shift();
+    updatePlayBar();
+    play();
+}
+
+function previous() {
+    if (musicInstance !== null) {
+        musicInstance.pause();
+    }
+    musicQueue.shift();
+    updatePlayBar();
+    play();
+}
+
 function shuffle(array) {
     var m = array.length, t, i;
-
     // While there remain elements to shuffle…
     while (m) {
-
         // Pick a remaining element…
         i = Math.floor(Math.random() * m--);
-
         // And swap it with the current element.
         t = array[m];
         array[m] = array[i];
         array[i] = t;
     }
-
     return array;
 }

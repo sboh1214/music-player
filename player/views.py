@@ -45,20 +45,17 @@ class AddView(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         files = request.FILES.getlist('file')
-        if form.is_valid():
-            for file in files:
-                info = Song.get_audio_info(file.temporary_file_path())
-                artist, is_artist_created = Artist.objects.get_or_create(slug=slugify(info['artist']),
-                                                                         name=info['artist'])
-                album, is_album_created = Album.objects.get_or_create(slug=slugify(info['album']),
-                                                                      name=info['album'], artist=artist)
-                album.artist = artist
-                song = Song.objects.create(slug=unique_slugify(Song, info['title']),
-                                           name=info['title'], album=album, audio=file)
-                song.user.add(request.user)
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        for file in files:
+            info = Song.get_audio_info(file.temporary_file_path())
+            artist, is_artist_created = Artist.objects.get_or_create(slug=slugify(info['artist']),
+                                                                     name=info['artist'])
+            album, is_album_created = Album.objects.get_or_create(slug=slugify(info['album']),
+                                                                  name=info['album'], artist=artist)
+            album.artist = artist
+            song = Song.objects.create(slug=unique_slugify(Song, info['title']),
+                                       name=info['title'], album=album, audio=file)
+            song.user.add(request.user)
+        return self.form_valid(form)
 
 
 class ArtistsView(ListView):
