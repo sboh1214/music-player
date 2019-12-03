@@ -44,9 +44,9 @@
                 </td>
                 <td class="mdc-data-table__cell">{{ song.name }}</td>
                 <td>
-                    <button class="mdc-icon-button material-icons mdc-ripple" id="button-play" data-row-id="{{ song.slug }}">play_arrow</button>
-                    <button class="mdc-icon-button material-icons mdc-ripple" id="button-more" data-row-id="{{ song.slug }}">more_vert</button>
-                    <div class="mdc-menu mdc-menu-surface" id="menu-more">
+                    <button class="mdc-icon-button material-icons mdc-ripple" id="button-song-play" data-row-id="{{ song.slug }}">play_arrow</button>
+                    <button class="mdc-icon-button material-icons mdc-ripple" id="button-song-more" data-row-id="{{ song.slug }}">more_vert</button>
+                    <div class="mdc-menu mdc-menu-surface" id="menu-song-more" data-row-id="{{ song.slug }}">
                         <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
                             <li class="mdc-list-item" role="menuitem">
                                 <span class="mdc-list-item__text">A Menu Item</span>

@@ -19,7 +19,7 @@ $(document).ready(function () {
     });
     $("#main-songs").load(htmlUrl["songs"], function () {
         const dataTable = new MDCDataTable(document.querySelector('.mdc-data-table'));
-        $.each($('#button-play'), function (i, element) {
+        $('#button-song-play').each(function (i, element) {
             element.addEventListener('click', function () {
                 let clickedSlug = element.getAttribute('data-row-id');
                 console.log(clickedSlug);
@@ -29,9 +29,12 @@ $(document).ready(function () {
                 updatePlayBar();
             })
         });
-        $.each($('#button-more'), function (i, element) {
-            element.addEventListener('click', function () {
-                const menu = new MDCMenu($("#menu-more"));
+        $('#button-song-more').each(function (i, buttonItem) {
+            buttonItem.addEventListener('click', function () {
+                let selectedMenu = $("#menu-song-more").find(function (menuItem) {
+                    return buttonItem.getAttribute('data-row-id') === menuItem.getAttribute('data-row-id');
+                });
+                const menu = new MDCMenu(selectedMenu);
                 menu.open = true;
             })
         });
@@ -50,6 +53,7 @@ $(document).ready(function () {
 
 let musicList = Array();
 let musicQueue = Array();
+let musicInstance = null;
 
 $.getJSON(songsListUrl, {}, function (data) {
     console.log(data);
@@ -82,12 +86,10 @@ window.addEventListener('DOMContentLoaded', function () {
     playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
             console.log("play");
-            var sound = new Howl({
-                src: [musicQueue[0].url]
-            });
-            sound.play();
+            play();
         } else {
             console.log("pause");
+            pause();
         }
     });
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
@@ -97,7 +99,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const timeSlider = new MDCSlider(document.getElementById('slider-time'));
     volumeSlider.listen('MDCSlider:change', (event) => {
         console.log(`Value changed to ${event.detail.value}`);
-        Howler.volume(event.detail.value/100);
+        Howler.volume(event.detail.value / 100);
     });
     timeSlider.listen('MDCSlider:change', (event) => {
         return console.log(`Value changed to ${event.detail.value}`);
@@ -124,4 +126,25 @@ function updatePlayBar() {
     $("#text-artist").text(musicQueue[0].artist);
 }
 
+function play() {
+    if (musicInstance === null) {
+        musicInstance = Howl({
+            src: [musicQueue[0].url]
+        });
+        musicInstance.play();
+    }
+    else
+    {
+        musicInstance.play();
+    }
+}
 
+function pause() {
+    if (musicInstance === null) {
+        console.error("cannot pause");
+    }
+    else
+    {
+        musicInstance.pause();
+    }
+}
