@@ -1,8 +1,7 @@
- :root {
-    --mdc-theme-primary: #5351db !important;
-    --mdc-theme-secondary: #8cc4de !important;
-    --mdc-theme-on-primary: #fff !important;
-    --mdc-theme-on-secondary: #fff !important;
+:root {
+    --mdc-theme-primary: #58C9B9 !important;
+    --mdc-theme-secondary: #9DC8C8 !important;
+    --mdc-theme-on-surface: #D1B6E1 !important;
 }
 
 .mdc-tab-bar {
@@ -10,14 +9,13 @@
 }
 
 @media (prefers-color-scheme: dark) {
-     :root {
-        --mdc-theme-primary: #5351db !important;
-        --mdc-theme-secondary: #8cc4de !important;
-        --mdc-theme-on-primary: #000000 !important;
-        --mdc-theme-on-secondary: #000000 !important;
-    }
-    body {
-        background-color: #000000;
+    :root {
+        --mdc-theme-primary: #58C9B9 !important;
+        --mdc-theme-secondary: #519D9E !important;
+        --mdc-theme-background: #363636 !important;
+        --mdc-theme-on-background: #505050 !important;
+        --mdc-theme-surface: #808080 !important;
+        --mdc-theme-text-primary-on-background: #fff !important;
     }
 }
 
@@ -67,6 +65,6 @@ body {
     z-index: 5;
 }
 
- .my-image-list {
- @include mdc-image-list-standard-columns(5);
- }
+.my-image-list {
+@include mdc-image-list-standard-columns(5);
+}

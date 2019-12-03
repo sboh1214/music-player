@@ -3,6 +3,7 @@ const MDCTopAppBar = mdc.topAppBar.MDCTopAppBar;
 const MDCList = mdc.list.MDCList;
 const MDCDrawer = mdc.drawer.MDCDrawer;
 const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle;
+const MDCRipple = mdc.ripple.MDCRipple;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
@@ -17,6 +18,7 @@ $(document).ready(function () {
     $("#main-songs").load(htmlUrl["songs"], function () {
         const dataTable = new MDCDataTable(document.querySelector('.mdc-data-table'));
         $.each($('#tbody-songs').children(), function (i, element) {
+            MDCRipple.attachTo(element);
             element.addEventListener('click', function () {
                 console.log('hello');
                 musicQueue.push(element.getAttribute('data-row-id'))
@@ -37,7 +39,7 @@ let mdcInstance = {};
 
 window.addEventListener('DOMContentLoaded', function () {
     for (i of document.querySelectorAll('.mdc-ripple')) {
-        mdc.ripple.MDCRipple.attachTo(i);
+        MDCRipple.attachTo(i);
     }
 
     mdcInstance.topAppBar = MDCTopAppBar.attachTo(document.getElementById('mdc-app-bar'));
