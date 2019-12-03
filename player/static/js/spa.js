@@ -9,12 +9,9 @@ const MDCMenu = mdc.menu.MDCMenu;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
-        var dropzone=document.getElementById('dropzone');
-
-        dropzone.ondrop=function(e){
-            fileinput.files=e.dataTransfer.files
-            e.preventDefault();
-        }
+        $("#add_music").dropzone({
+            url: htmlUrl["add"],
+        });
     });
     $("#main-artists").load(htmlUrl["artists"], function () {
 
@@ -24,19 +21,29 @@ $(document).ready(function () {
     });
     $("#main-songs").load(htmlUrl["songs"], function () {
         const dataTable = new MDCDataTable(document.querySelector('.mdc-data-table'));
-        $.each($('#button-play'), function (i, element) {
+        $('#button-song-play').each(function (i, element) {
             element.addEventListener('click', function () {
                 let clickedSlug = element.getAttribute('data-row-id');
                 console.log(clickedSlug);
-                musicQueue.push(musicList.find(function (item) {
+                if (musicInstance !== null)
+                {
+                    musicInstance.pause();
+                    musicInstance = null;
+                }
+                musicQueue.unshift(musicList.find(function (item) {
                     return item.slug === clickedSlug;
                 }));
                 updatePlayBar();
+                play();
+                mdcInstance.playButton.on = true;
             })
         });
-        $.each($('#button-more'), function (i, element) {
-            element.addEventListener('click', function () {
-                const menu = new MDCMenu($("#menu-more"));
+        $('#button-song-more').each(function (i, buttonItem) {
+            buttonItem.addEventListener('click', function () {
+                let selectedMenu = $("#menu-song-more").find(function (menuItem) {
+                    return buttonItem.getAttribute('data-row-id') === menuItem.getAttribute('data-row-id');
+                });
+                const menu = new MDCMenu(selectedMenu);
                 menu.open = true;
             })
         });
@@ -54,11 +61,14 @@ $(document).ready(function () {
 });
 
 let musicList = Array();
-let musicQueue = Array();
+let musicQueue = Array([null]);
+let musicInstance = null;
 
 $.getJSON(songsListUrl, {}, function (data) {
     console.log(data);
     musicList = data;
+    musicQueue = shuffle(musicList);
+    updatePlayBar();
 });
 
 let mdcInstance = {};
@@ -83,18 +93,17 @@ window.addEventListener('DOMContentLoaded', function () {
     mdcInstance.drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
     mdcInstance.drawer.open = true;
 
-    const playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
-    playButton.listen('MDCIconButtonToggle:change', function (event) {
+    mdcInstance.playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
+    mdcInstance.playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
             console.log("play");
-            var sound = new Howl({
-                src: [musicQueue[0].url]
-            });
-            sound.play();
+            play();
         } else {
             console.log("pause");
+            pause();
         }
     });
+
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
     const repeatButton = new MDCIconButtonToggle(document.getElementById('button-repeat'));
 
@@ -102,13 +111,22 @@ window.addEventListener('DOMContentLoaded', function () {
     const timeSlider = new MDCSlider(document.getElementById('slider-time'));
     volumeSlider.listen('MDCSlider:change', (event) => {
         console.log(`Value changed to ${event.detail.value}`);
-        Howler.volume(event.detail.value/100);
+        Howler.volume(event.detail.value / 100);
     });
     timeSlider.listen('MDCSlider:change', (event) => {
         return console.log(`Value changed to ${event.detail.value}`);
     });
 
     changeView(viewName.indexOf(spaView), true);
+
+    let nextButton = document.getElementById("button-next");
+    nextButton.addEventListener('click', function(event){
+        next();
+    });
+    let previousButton = document.getElementById("button-previous");
+    previousButton.addEventListener('click', function(event){
+        previous();
+    });
 });
 
 function changeView(index, pushState) {
@@ -129,4 +147,58 @@ function updatePlayBar() {
     $("#text-artist").text(musicQueue[0].artist);
 }
 
+function play() {
+    if (musicInstance === null) {
+        musicInstance = new Howl({
+            src: [musicQueue[0].url]
+        });
+        musicInstance.once('load', function () {
+            musicInstance.play();
+        });
+    } else {
+        musicInstance.play();
+    }
+    mdcInstance.playButton.on = true;
+}
 
+function pause() {
+    if (musicInstance === null) {
+        console.error("cannot pause");
+    } else {
+        musicInstance.pause();
+    }
+    mdcInstance.playButton.on = false;
+}
+
+function next() {
+    if (musicInstance !== null) {
+        musicInstance.pause();
+    }
+    musicInstance = null;
+    musicQueue.shift();
+    updatePlayBar();
+    play();
+}
+
+function previous() {
+    if (musicInstance !== null) {
+        musicInstance.pause();
+    }
+    musicQueue.shift();
+    updatePlayBar();
+    play();
+}
+
+function shuffle(array) {
+    var m = array.length, t, i;
+    // While there remain elements to shuffle…
+    while (m) {
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+    return array;
+}

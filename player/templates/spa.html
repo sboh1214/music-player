@@ -21,7 +21,7 @@
         </section>
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section">
             {% load static %}
-            <img src="{% static 'music-player.png' %}" width="50" height="50" alt="Music">
+            <img src="{% static 'music-player.png' %}" width="50" height="50" alt="Music" id="ui-albumart">
             <div>
                 <span class="mdc-typography--body1"> <b id="text-title">  title  </b> </span>
                 <br>
@@ -30,13 +30,13 @@
                 <span class="mdc-typography--body1" id="text-album"> album </span>
             </div>
             <button class="mdc-icon-button material-icons">shuffle</button>
-            <button class="mdc-icon-button material-icons">fast_rewind</button>
+            <button class="mdc-icon-button material-icons" id="button-previous">fast_rewind</button>
             <button id="button-play" class="mdc-icon-button" aria-label="Play and pause" aria-hidden="true"
                     aria-pressed="false">
                 <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">pause_circle_outline</i>
                 <i class="material-icons mdc-icon-button__icon">play_circle_outline</i>
             </button>
-            <button class="mdc-icon-button material-icons">fast_forward</button>
+            <button class="mdc-icon-button material-icons" id="button-next">fast_forward</button>
             <button id="button-repeat" class="mdc-icon-button" aria-label="Repeat One" aria-hidden="true"
                     aria-pressed="false">
                 <i class="material-icons mdc-icon-button__icon mdc-icon-button__icon--on">repeat_one</i>
@@ -150,6 +150,7 @@
     </div>
 </div>
 {% load static %}
+
 <script type="text/javascript"
         src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js"></script>
@@ -178,7 +179,9 @@
 
     const songsListUrl = "{% url 'player:songs_list' %}"
 </script>
+{% load static %}
 <script type="text/javascript" src="{% static 'js/spa.js' %}"></script>
+<script src="{% static 'js/dropzone.js' %}"></script>
 </body>
 
 </html>
