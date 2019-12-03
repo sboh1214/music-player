@@ -9,10 +9,10 @@ const MDCMenu = mdc.menu.MDCMenu;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
-        var dropzone=document.getElementById('dropzone');
+        var dropzone = document.getElementById('dropzone');
 
-        dropzone.ondrop=function(e){
-            fileinput.files=e.dataTransfer.files
+        dropzone.ondrop = function (e) {
+            fileinput.files = e.dataTransfer.files
             e.preventDefault();
         }
     });
@@ -136,20 +136,22 @@ function play() {
         musicInstance = Howl({
             src: [musicQueue[0].url]
         });
-        musicInstance.play();
-    }
-    else
-    {
-        musicInstance.play();
+        musicInstance.once('load', function () {
+            musicInstance.play();
+        });
+    } else {
+        musicInstance.once('load', function () {
+            musicInstance.play();
+        });
     }
 }
 
 function pause() {
     if (musicInstance === null) {
         console.error("cannot pause");
-    }
-    else
-    {
-        musicInstance.pause();
+    } else {
+        musicInstance.once('load', function () {
+            musicInstance.pause();
+        });
     }
 }
