@@ -48,10 +48,10 @@ class Song(models.Model):
         info = {'album': None, 'title': None, 'artist': None, 'date': None, 'covr':None}
         if ext == 'mp3':
             music = EasyID3(path)
-            info['album'] = music['album']
-            info['artist'] = music['artist']
-            info['title'] = music['title']
-            info['date'] = music['date']
+            info['album'] = music['album'][0]
+            info['artist'] = music['artist'][0]
+            info['title'] = music['title'][0]
+            info['date'] = music['date'][0]
             music = File(path)
             imgkey=None
             for key in music.keys():
