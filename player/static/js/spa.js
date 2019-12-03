@@ -21,8 +21,12 @@ $(document).ready(function () {
         $.each($('#tbody-songs').children(), function (i, element) {
             MDCRipple.attachTo(element);
             element.addEventListener('click', function () {
-                console.log('hello');
-                musicQueue.push(element.getAttribute('data-row-id'))
+                let clickedSlug = element.getAttribute('data-row-id');
+                console.log(clickedSlug);
+                musicQueue.push(musicList.find(function (item) {
+                    return item.slug === clickedSlug;
+                }));
+                updatePlayBar();
             })
         });
     });
@@ -69,7 +73,7 @@ window.addEventListener('DOMContentLoaded', function () {
         if (event.detail.isOn) {
             console.log("play");
             var sound = new Howl({
-                src: [musicList[0].audioUrl]
+                src: [musicQueue[0].url]
             });
             sound.play();
         } else {
@@ -101,4 +105,10 @@ function changeView(index, pushState) {
     if (pushState === true) {
         window.history.pushState(null, null, viewUrl[index])
     }
+}
+
+function updatePlayBar() {
+    $("#text-title").text(musicQueue[0].title);
+    $("#text-album").text(musicQueue[0].album);
+    $("#text-artist").text(musicQueue[0].artist);
 }
