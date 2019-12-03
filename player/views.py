@@ -1,10 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
+
+from json import dumps
 
 from api.models import *
 from player.forms import *
@@ -91,3 +94,17 @@ class AccountView(TemplateView):
 
 class SettingsView(TemplateView):
     template_name = "pages/settings.html"
+
+
+def songs_list(request):
+    song_list = []
+    for item in Song.objects.filter(user=request.user):
+        song_list.append({
+            "slug"      : item.slug,
+            "name"      : item.name,
+            "albumName" : item.album.name,
+            "artistName": item.album.artist.name,
+            "audioUrl"  : item.audio.url
+        })
+    return HttpResponse(dumps(song_list))
+

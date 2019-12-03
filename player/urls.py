@@ -21,4 +21,5 @@ urlpatterns = [
     path('/account/view', AccountView.as_view(), name='account_view'),
     path('/settings/view', SettingsView.as_view(), name='settings_view'),
 
+    path('/songs/list', songs_list, name='songs_list'),
 ]

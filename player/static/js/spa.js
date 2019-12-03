@@ -4,6 +4,7 @@ const MDCList = mdc.list.MDCList;
 const MDCDrawer = mdc.drawer.MDCDrawer;
 const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle;
 const MDCRipple = mdc.ripple.MDCRipple;
+const MDCSlider = mdc.slider.MDCSlider;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
@@ -33,8 +34,10 @@ $(document).ready(function () {
     });
 });
 
-let audio = new Audio();
-let musicQueue = [];
+$.getJSON(songsListUrl, {}, function (data) {
+    console.log(data);
+});
+
 let mdcInstance = {};
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -57,7 +60,7 @@ window.addEventListener('DOMContentLoaded', function () {
     mdcInstance.drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
     mdcInstance.drawer.open = true;
 
-    const playButton = new mdc.iconButton.MDCIconButtonToggle(document.getElementById('button-play'));
+    const playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
     playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
             audio.pause();
@@ -69,8 +72,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
     const repeatButton = new MDCIconButtonToggle(document.getElementById('button-repeat'));
 
-    const v_slider = new mdc.slider.MDCSlider(document.getElementById('slider-volume'));
-    const t_slider = new mdc.slider.MDCSlider(document.getElementById('slider-time'));
+    const v_slider = new MDCSlider(document.getElementById('slider-volume'));
+    const t_slider = new MDCSlider(document.getElementById('slider-time'));
     v_slider.listen('MDCSlider:change', (event) => {
         return console.log(`Value changed to ${event.detail.value}`);
     });
