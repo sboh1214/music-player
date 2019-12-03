@@ -29,6 +29,8 @@ $(document).ready(function () {
                     return item.slug === clickedSlug;
                 }));
                 updatePlayBar();
+                play();
+                mdcInstance.playButton.on = true;
             })
         });
         $('#button-song-more').each(function (i, buttonItem) {
@@ -84,8 +86,8 @@ window.addEventListener('DOMContentLoaded', function () {
     mdcInstance.drawer = MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
     mdcInstance.drawer.open = true;
 
-    const playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
-    playButton.listen('MDCIconButtonToggle:change', function (event) {
+    mdcInstance.playButton = new MDCIconButtonToggle(document.getElementById('button-play'));
+    mdcInstance.playButton.listen('MDCIconButtonToggle:change', function (event) {
         if (event.detail.isOn) {
             console.log("play");
             play();
@@ -130,25 +132,23 @@ function updatePlayBar() {
 
 function play() {
     if (musicInstance === null) {
-        musicInstance = Howl({
+        musicInstance = new Howl({
             src: [musicQueue[0].url]
         });
         musicInstance.once('load', function () {
             musicInstance.play();
         });
     } else {
-        musicInstance.once('load', function () {
-            musicInstance.play();
-        });
+        musicInstance.play();
     }
+    mdcInstance.playButton.on = true;
 }
 
 function pause() {
     if (musicInstance === null) {
         console.error("cannot pause");
     } else {
-        musicInstance.once('load', function () {
-            musicInstance.pause();
-        });
+        musicInstance.pause();
     }
+    mdcInstance.playButton.on = false;
 }
