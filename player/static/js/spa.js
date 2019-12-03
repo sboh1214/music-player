@@ -104,17 +104,22 @@ window.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    const favButton = new MDCIconButtonToggle(document.getElementById('button-fav'));
-    const repeatButton = new MDCIconButtonToggle(document.getElementById('button-repeat'));
+    mdcInstance.muteButton = new MDCIconButtonToggle(document.getElementById('button-mute'));
+    mdcInstance.muteButton.listen('MDCIconButtonToggle:change', function (event) {
+        if (event.detail.isOn) {
+            console.log("mute");
+            Howler.volume(0);
+        } else {
+            console.log("unmute");
+            Howler.volume(1);
+        }
+    });
 
     const volumeSlider = new MDCSlider(document.getElementById('slider-volume'));
-    const timeSlider = new MDCSlider(document.getElementById('slider-time'));
     volumeSlider.listen('MDCSlider:change', (event) => {
         console.log(`Value changed to ${event.detail.value}`);
         Howler.volume(event.detail.value / 100);
-    });
-    timeSlider.listen('MDCSlider:change', (event) => {
-        return console.log(`Value changed to ${event.detail.value}`);
+        mdcInstance.muteButton.on = false;
     });
 
     changeView(viewName.indexOf(spaView), true);

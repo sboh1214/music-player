@@ -10,12 +10,12 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --mdc-theme-primary: #58C9B9 !important;
-        --mdc-theme-secondary: #519D9E !important;
+        --mdc-theme-primary: #519D9E !important;
+        --mdc-theme-secondary: #58C9B9 !important;
         --mdc-theme-background: #363636 !important;
         --mdc-theme-on-background: #505050 !important;
-        --mdc-theme-surface: #808080 !important;
-        --mdc-theme-text-primary-on-background: #fff !important;
+        --mdc-theme-surface: #252525 !important;
+        --mdc-theme-text: #fff !important;
     }
 }
 
@@ -84,4 +84,13 @@ body {
 .mdc-typography {
     margin-right: 1em;
     margin-left: 1em;
+}
+
+.mdc-drawer{
+    background: var(--mdc-theme-on-background);
+    color: var(--mdc-theme-text);
+}
+
+.text{
+    color: var(--mdc-theme-text);
 }
