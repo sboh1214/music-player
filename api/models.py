@@ -2,8 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 
 from mutagen.flac import FLAC
-from mutagen.id3 import ID3
+from mutagen.id3 import ID3, APIC
+from mutagen.easyid3 import EasyID3
 from mutagen.mp4 import MP4
+from mutagen import File
 
 
 class Artist(models.Model):
@@ -43,14 +45,20 @@ class Song(models.Model):
     @staticmethod
     def get_audio_info(path):
         ext = path.split('.')[-1]
-        info = {'album': None, 'title': None, 'artist': None, 'date': None, 'length':None}
+        info = {'album': None, 'title': None, 'artist': None, 'date': None, 'covr':None}
         if ext == 'mp3':
-            music = ID3(path)
-            info['album'] = music['TALB']
-            info['artist'] = music['TPE1']
-            info['title'] = music['TIT2']
-            info['date'] = music['TDRC']
-            info['length'] = music['TLEN']
+            music = EasyID3(path)
+            info['album'] = music['album']
+            info['artist'] = music['artist']
+            info['title'] = music['title']
+            info['date'] = music['date']
+            music = File(path)
+            imgkey=None
+            for key in music.keys():
+                if key[0:4] == 'APIC':
+                    imgkey=key
+            if imgkey!=None:
+                info['covr'] = music.tags[imgkey].data # access APIC frame and grab the image
         elif ext == 'flac':
             music = FLAC(path)
             info['album'] = music['album'][0]
