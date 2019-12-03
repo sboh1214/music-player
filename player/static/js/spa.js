@@ -5,6 +5,7 @@ const MDCDrawer = mdc.drawer.MDCDrawer;
 const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle;
 const MDCRipple = mdc.ripple.MDCRipple;
 const MDCSlider = mdc.slider.MDCSlider;
+const MDCMenu = mdc.menu.MDCMenu;
 
 $(document).ready(function () {
     $("#main-add").load(htmlUrl["add"], function () {
@@ -18,8 +19,7 @@ $(document).ready(function () {
     });
     $("#main-songs").load(htmlUrl["songs"], function () {
         const dataTable = new MDCDataTable(document.querySelector('.mdc-data-table'));
-        $.each($('#tbody-songs').children(), function (i, element) {
-            MDCRipple.attachTo(element);
+        $.each($('#button-play'), function (i, element) {
             element.addEventListener('click', function () {
                 let clickedSlug = element.getAttribute('data-row-id');
                 console.log(clickedSlug);
@@ -29,6 +29,16 @@ $(document).ready(function () {
                 updatePlayBar();
             })
         });
+        $.each($('#button-more'), function (i, element) {
+            element.addEventListener('click', function () {
+                const menu = new MDCMenu($("#menu-more"));
+                menu.open = true;
+            })
+        });
+        $.each($('.mdc-ripple'), function (i, element) {
+            ripple = new MDCRipple(element);
+            ripple.unbounded = true;
+        })
     });
     $("#main-account").load(htmlUrl["account"], function () {
 
@@ -86,7 +96,8 @@ window.addEventListener('DOMContentLoaded', function () {
     const volumeSlider = new MDCSlider(document.getElementById('slider-volume'));
     const timeSlider = new MDCSlider(document.getElementById('slider-time'));
     volumeSlider.listen('MDCSlider:change', (event) => {
-        return console.log(`Value changed to ${event.detail.value}`);
+        console.log(`Value changed to ${event.detail.value}`);
+        Howler.volume(event.detail.value/100);
     });
     timeSlider.listen('MDCSlider:change', (event) => {
         return console.log(`Value changed to ${event.detail.value}`);
@@ -112,3 +123,5 @@ function updatePlayBar() {
     $("#text-album").text(musicQueue[0].album);
     $("#text-artist").text(musicQueue[0].artist);
 }
+
+

@@ -24,9 +24,9 @@
             <th class="mdc-data-table__header-cell" role="columnheader" scope="col">Album</th>
         </tr>
         </thead>
-        <tbody class="mdc-data-table__content" id="tbody-songs">
+        <tbody class="mdc-data-table__content">
         {% for song in song_list %}
-            <tr data-row-id="{{ song.slug }}" class="mdc-data-table__row mdc-ripple">
+            <tr class="mdc-data-table__row mdc-ripple">
                 <td class="mdc-data-table__cell mdc-data-table__cell--checkbox">
                     <div class="mdc-checkbox mdc-data-table__row-checkbox">
                         <label>
@@ -44,7 +44,18 @@
                 </td>
                 <td class="mdc-data-table__cell">{{ song.name }}</td>
                 <td>
-                    <button class="mdc-icon-button material-icons mdc-ripple">more_vert</button>
+                    <button class="mdc-icon-button material-icons mdc-ripple" id="button-play" data-row-id="{{ song.slug }}">play_arrow</button>
+                    <button class="mdc-icon-button material-icons mdc-ripple" id="button-more" data-row-id="{{ song.slug }}">more_vert</button>
+                    <div class="mdc-menu mdc-menu-surface" id="menu-more">
+                        <ul class="mdc-list" role="menu" aria-hidden="true" aria-orientation="vertical" tabindex="-1">
+                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__text">A Menu Item</span>
+                            </li>
+                            <li class="mdc-list-item" role="menuitem">
+                                <span class="mdc-list-item__text">Another Menu Item</span>
+                            </li>
+                        </ul>
+                    </div>
                 </td>
                 <td class="mdc-data-table__cell">{{ song.minutes }}:{{ song.seconds }}</td>
                 <td class="mdc-data-table__cell">{{ song.album.artist }}</td>
