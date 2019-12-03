@@ -50,7 +50,6 @@ body {
 .content {
     display: none;
     width: 100%;
-    height: 100%;
 }
 
 .content--active {
@@ -67,4 +66,8 @@ body {
 
 .my-image-list {
 @include mdc-image-list-standard-columns(5);
+}
+
+#ui-albumart {
+    margin-right: 1em;
 }
