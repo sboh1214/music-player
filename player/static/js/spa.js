@@ -25,6 +25,11 @@ $(document).ready(function () {
             element.addEventListener('click', function () {
                 let clickedSlug = element.getAttribute('data-row-id');
                 console.log(clickedSlug);
+                if (musicInstance !== null)
+                {
+                    musicInstance.pause();
+                    musicInstance = null;
+                }
                 musicQueue.unshift(musicList.find(function (item) {
                     return item.slug === clickedSlug;
                 }));
