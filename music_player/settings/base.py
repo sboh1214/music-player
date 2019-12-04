@@ -111,7 +111,6 @@ USE_TZ = True
 
 STATIC_ROOT = '/home/sboh1214/repos/music-player/static/'
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (join('static'), )
 
 LOGIN_URL = '/account/login/'
 LOGOUT_URL = '/account/logout/'
