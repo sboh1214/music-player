@@ -109,11 +109,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    join(BASE_DIR, "static"),
-    join(BASE_DIR, "player", "static"),
-]
+STATICFILES_DIRS = (join('static'), )
 
 LOGIN_URL = '/account/login/'
 LOGOUT_URL = '/account/logout/'
@@ -127,4 +125,3 @@ APPEND_SLASH = False
 SITE_ID = 1
 
 PROJECT_DIR = dirname(abspath(__file__))
-STATIC_ROOT = join(PROJECT_DIR, 'static')
