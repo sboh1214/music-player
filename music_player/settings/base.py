@@ -124,3 +124,6 @@ MEDIA_ROOT = join(BASE_DIR, 'music')
 APPEND_SLASH = False
 
 SITE_ID = 1
+
+PROJECT_DIR = dirname(abspath(__file__))
+STATIC_ROOT = join(PROJECT_DIR, 'static')
