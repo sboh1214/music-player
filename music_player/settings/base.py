@@ -112,6 +112,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     join(BASE_DIR, "static"),
+    join(BASE_DIR, "player", "static"),
 ]
 
 LOGIN_URL = '/account/login/'
