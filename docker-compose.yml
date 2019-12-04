@@ -13,7 +13,7 @@ services:
     command: >
       sh -c "python manage.py makemigrations &&
              python manage.py migrate &&
-             python manage.py runserver 192.168.123.123:80 --settings=music_player.settings.prod"
+             python manage.py runserver 0:80 --settings=music_player.settings.prod"
     volumes:
       - .:/website
       - ~/docker/music:/music
